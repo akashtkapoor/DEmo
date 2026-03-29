@@ -671,6 +671,115 @@
     transition: opacity 0.9s ease, transform 0.9s ease;
   }
   .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+
+    /* NAV */
+    nav {
+      padding: 20px 24px;
+    }
+    .nav-links {
+      display: none;
+    }
+
+    /* HERO */
+    .hero-content {
+      padding: 0 24px;
+      max-width: 100%;
+    }
+    .hero-actions {
+      flex-direction: column;
+      gap: 12px;
+    }
+    .btn-gold, .btn-outline-white {
+      text-align: center;
+      padding: 14px 28px;
+    }
+
+    /* INTRO */
+    .intro {
+      grid-template-columns: 1fr;
+    }
+    .intro-left {
+      padding: 60px 24px;
+    }
+    .intro-right {
+      height: 280px;
+    }
+
+    /* MENU */
+    .menu {
+      padding: 60px 24px;
+    }
+    .menu-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .menu-items {
+      grid-template-columns: 1fr;
+    }
+
+    /* GALLERY */
+    .gallery {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+    }
+    .gallery-item {
+      height: 240px;
+    }
+    .gallery-item.large {
+      grid-column: 1;
+      grid-row: auto;
+      height: 300px;
+    }
+
+    /* CHEFS */
+    .chefs {
+      padding: 60px 24px;
+    }
+    .chefs-grid {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+
+    /* RESERVATIONS */
+    .reservations {
+      padding: 60px 24px;
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .res-form {
+      padding: 32px 20px;
+    }
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+    .form-field.full {
+      grid-column: span 1;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 48px 24px 32px;
+    }
+    .footer-top {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+    .footer-bottom {
+      flex-direction: column;
+      gap: 8px;
+      text-align: center;
+    }
+
+    /* HOURS */
+    .hours-grid {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
 </head>
 <body>

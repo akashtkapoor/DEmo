@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maison Verdant — Farm to Table</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #1e2d1f;
+    --sage: #6b7f5e;
+    --moss: #4a5e3a;
+    --cream: #faf6ee;
+    --warm: #f0e8d5;
+    --terracotta: #c4673a;
+    --amber: #d4943a;
+    --text: #2a2a22;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 64px;
+    background: rgba(250,246,238,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(107,127,94,0.15);
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--forest);
+  }
+  .logo span {
+    font-weight: 400;
+    font-style: italic;
+    color: var(--sage);
+  }
+  .nav-links {
+    display: flex;
+    gap: 44px;
+    list-style: none;
+  }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--sage);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--forest); }
+  .reserve-btn {
+    padding: 12px 28px;
+    background: var(--forest);
+    color: var(--cream) !important;
+    border-radius: 100px;
+  }
+  .reserve-btn:hover { background: var(--moss) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1800&q=85') center/cover no-repeat;
+    filter: brightness(0.45) saturate(80%);
+    transform: scale(1.04);
+    animation: slowPan 20s ease-in-out infinite alternate;
+  }
+  @keyframes slowPan {
+    from { transform: scale(1.04) translateX(0); }
+    to { transform: scale(1.04) translateX(-2%); }
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(30,45,31,0.7) 0%, transparent 60%);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 80px;
+    max-width: 700px;
+  }
+  .hero-season {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeRight 1s 0.4s forwards;
+  }
+  .season-line {
+    width: 40px;
+    height: 1px;
+    background: var(--amber);
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 6vw, 84px);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--cream);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeRight 1s 0.6s forwards;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: rgba(212,148,58,0.9);
+  }
+  .hero-sub {
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: rgba(250,246,238,0.65);
+    max-width: 460px;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeRight 1s 0.8s forwards;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 20px;
+    opacity: 0;
+    animation: fadeRight 1s 1.0s forwards;
+  }
+  .btn-gold {
+    padding: 16px 40px;
+    background: var(--amber);
+    color: var(--forest);
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 100px;
+    transition: all 0.3s;
+  }
+  .btn-gold:hover {
+    background: #e8a845;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(212,148,58,0.4);
+  }
+  .btn-outline-white {
+    padding: 16px 40px;
+    border: 1px solid rgba(250,246,238,0.4);
+    color: var(--cream);
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 400;
+    text-decoration: none;
+    border-radius: 100px;
+    transition: all 0.3s;
+  }
+  .btn-outline-white:hover {
+    background: rgba(250,246,238,0.1);
+    border-color: rgba(250,246,238,0.7);
+  }
+  .scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: rgba(250,246,238,0.4);
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    animation: bounce 2s infinite;
+  }
+  .scroll-hint svg { opacity: 0.4; }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ── MARQUEE ── */
+  .marquee-wrap {
+    background: var(--forest);
+    padding: 18px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .marquee-track {
+    display: inline-flex;
+    animation: marquee 20s linear infinite;
+  }
+  .marquee-item {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: rgba(250,246,238,0.4);
+    padding: 0 32px;
+  }
+  .marquee-dot {
+    color: var(--amber);
+    font-style: normal;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ── INTRO ── */
+  .intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    min-height: 600px;
+  }
+  .intro-left {
+    padding: 100px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .eyebrow {
+    font-size: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 24px;
+    display: block;
+  }
+  .intro-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 3vw, 48px);
+    font-weight: 400;
+    line-height: 1.25;
+    margin-bottom: 28px;
+    color: var(--forest);
+  }
+  .intro-title em { font-style: italic; color: var(--sage); }
+  .intro-body {
+    font-size: 16px;
+    line-height: 1.9;
+    color: rgba(42,42,34,0.65);
+    max-width: 420px;
+    margin-bottom: 40px;
+  }
+  .text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    text-decoration: none;
+    font-weight: 500;
+    transition: gap 0.3s;
+  }
+  .text-link:hover { gap: 20px; }
+  .intro-right {
+    position: relative;
+    overflow: hidden;
+  }
+  .intro-right img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+  }
+  .intro-right:hover img { transform: scale(1.04); }
+  .intro-caption {
+    position: absolute;
+    bottom: 32px;
+    left: 32px;
+    background: var(--forest);
+    color: var(--cream);
+    padding: 16px 24px;
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-style: italic;
+  }
+
+  /* ── MENU PREVIEW ── */
+  .menu {
+    padding: 100px 80px;
+    background: var(--warm);
+  }
+  .menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 64px;
+  }
+  .menu-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--forest);
+  }
+  .menu-title em { font-style: italic; color: var(--sage); }
+  .season-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    background: var(--forest);
+    color: var(--cream);
+    border-radius: 100px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .leaf { font-size: 14px; }
+  .menu-items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .menu-item {
+    background: var(--cream);
+    padding: 40px 36px;
+    position: relative;
+    transition: background 0.3s;
+    border-bottom: 3px solid transparent;
+    cursor: default;
+  }
+  .menu-item:hover {
+    background: var(--forest);
+    border-bottom-color: var(--amber);
+  }
+  .menu-item:hover .dish-name { color: var(--cream); }
+  .menu-item:hover .dish-desc { color: rgba(250,246,238,0.55); }
+  .menu-item:hover .dish-price { color: var(--amber); }
+  .menu-item:hover .dish-label { color: rgba(250,246,238,0.35); }
+  .dish-label {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 16px;
+    transition: color 0.3s;
+  }
+  .dish-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 12px;
+    color: var(--forest);
+    transition: color 0.3s;
+  }
+  .dish-desc {
+    font-size: 13px;
+    line-height: 1.8;
+    color: rgba(42,42,34,0.6);
+    margin-bottom: 20px;
+    transition: color 0.3s;
+  }
+  .dish-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--terracotta);
+    transition: color 0.3s;
+  }
+  .dish-tag {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .tag-new { background: rgba(196,103,58,0.1); color: var(--terracotta); }
+  .tag-sig { background: rgba(74,94,58,0.1); color: var(--moss); }
+
+  /* ── GALLERY ── */
+  .gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 300px 300px;
+    gap: 4px;
+  }
+  .gallery-item {
+    overflow: hidden;
+    position: relative;
+  }
+  .gallery-item.large {
+    grid-column: 1;
+    grid-row: 1 / 3;
+  }
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease, filter 0.4s ease;
+    filter: saturate(90%);
+  }
+  .gallery-item:hover img {
+    transform: scale(1.06);
+    filter: saturate(110%);
+  }
+  .gallery-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(30,45,31,0.8) 0%, transparent 100%);
+    padding: 32px 24px 20px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    color: var(--cream);
+  }
+  .gallery-item:hover .gallery-caption { opacity: 1; }
+  .gallery-caption p {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-style: italic;
+  }
+
+  /* ── CHEFS ── */
+  .chefs {
+    padding: 100px 80px;
+    background: var(--forest);
+    color: var(--cream);
+  }
+  .chefs-header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+  .chefs-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 400;
+    line-height: 1.2;
+  }
+  .chefs-title em { font-style: italic; color: var(--amber); }
+  .chefs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .chef-card {
+    text-align: center;
+  }
+  .chef-img {
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    border-radius: 8px;
+    filter: sepia(20%) saturate(70%) brightness(0.85);
+    margin-bottom: 24px;
+    transition: filter 0.4s;
+  }
+  .chef-card:hover .chef-img {
+    filter: sepia(5%) saturate(90%) brightness(0.95);
+  }
+  .chef-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    margin-bottom: 6px;
+    font-weight: 400;
+  }
+  .chef-role {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 16px;
+  }
+  .chef-bio {
+    font-size: 13px;
+    line-height: 1.8;
+    color: rgba(250,246,238,0.5);
+  }
+
+  /* ── RESERVATIONS ── */
+  .reservations {
+    padding: 100px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    background: var(--cream);
+  }
+  .res-content .eyebrow { color: var(--terracotta); }
+  .res-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 3.5vw, 52px);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--forest);
+    margin-bottom: 20px;
+  }
+  .res-title em { font-style: italic; color: var(--sage); }
+  .res-body {
+    font-size: 16px;
+    line-height: 1.8;
+    color: rgba(42,42,34,0.6);
+    margin-bottom: 32px;
+  }
+  .hours-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 32px;
+  }
+  .hours-item {
+    padding: 20px;
+    background: var(--warm);
+  }
+  .hours-day {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 6px;
+  }
+  .hours-time {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--forest);
+  }
+  .res-form {
+    background: var(--warm);
+    padding: 48px;
+    border-radius: 4px;
+  }
+  .form-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--forest);
+    margin-bottom: 32px;
+    font-style: italic;
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .form-field.full { grid-column: span 2; }
+  .form-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--sage);
+  }
+  .form-input {
+    padding: 14px 16px;
+    background: var(--cream);
+    border: 1px solid rgba(107,127,94,0.2);
+    border-radius: 2px;
+    font-family: 'Jost', sans-serif;
+    font-size: 15px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.3s;
+    -webkit-appearance: none;
+  }
+  .form-input:focus { border-color: var(--sage); }
+  .form-submit {
+    width: 100%;
+    margin-top: 24px;
+    padding: 18px;
+    background: var(--forest);
+    color: var(--cream);
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background 0.3s;
+  }
+  .form-submit:hover { background: var(--moss); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--forest);
+    color: var(--cream);
+    padding: 60px 80px 40px;
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 60px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(250,246,238,0.1);
+    margin-bottom: 32px;
+  }
+  .footer-brand .logo { color: var(--cream); font-size: 20px; }
+  .footer-brand p {
+    font-size: 13px;
+    line-height: 1.8;
+    color: rgba(250,246,238,0.4);
+    margin-top: 16px;
+    max-width: 260px;
+  }
+  .footer-col-title {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 20px;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 10px; }
+  .footer-col ul li a {
+    text-decoration: none;
+    font-size: 13px;
+    color: rgba(250,246,238,0.4);
+    transition: color 0.2s;
+  }
+  .footer-col ul li a:hover { color: var(--cream); }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: rgba(250,246,238,0.25);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeRight {
+    from { opacity: 0; transform: translateX(-24px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Maison <span>Verdant</span></div>
+  <ul class="nav-links">
+    <li><a href="#">Menu</a></li>
+    <li><a href="#">Story</a></li>
+    <li><a href="#">Events</a></li>
+    <li><a href="#">Journal</a></li>
+    <li><a href="#" class="reserve-btn">Reserve</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-season">
+      <div class="season-line"></div>
+      Spring Menu — Now Available
+    </div>
+    <h1 class="hero-title">Where the<br>harvest <em>tells</em><br>the story</h1>
+    <p class="hero-sub">A celebration of the land — seasonal menus built around what's growing within 50 miles of our door, reimagined nightly by our kitchen.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-gold">Reserve a table</a>
+      <a href="#" class="btn-outline-white">View the menu</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <svg width="16" height="24" viewBox="0 0 16 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <rect x="1" y="1" width="14" height="22" rx="7"/>
+      <circle cx="8" cy="7" r="2" fill="currentColor"/>
+    </svg>
+    Scroll
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Farm to Table <span class="marquee-dot">·</span></span>
+    <span class="marquee-item">Seasonal Menus <span class="marquee-dot">·</span></span>
+    <span class="marquee-item">Local Provenance <span class="marquee-dot">·</span></span>
+    <span class="marquee-item">Natural Wine <span class="marquee-dot">·</span></span>
+    <span class="marquee-item">Open Since 2009 <span class="marquee-dot">·</span></span>
+    <span class="marquee-item">Michelin Recommended <span class="marquee-dot">·</span></span>
+    <span class="marquee-item">Tasting Menu Available <span class="marquee-dot">·</span></span>
+    <span class="marquee-item">Farm to Table <span class="marquee-dot">·</span></span>
+    <span class="marquee-item">Seasonal Menus <span class="marquee-dot">·</span></span>
+    <span class="marquee-item">Local Provenance <span class="marquee-dot">·</span></span>
+    <span class="marquee-item">Natural Wine <span class="marquee-dot">·</span></span>
+    <span class="marquee-item">Open Since 2009 <span class="marquee-dot">·</span></span>
+    <span class="marquee-item">Michelin Recommended <span class="marquee-dot">·</span></span>
+    <span class="marquee-item">Tasting Menu Available <span class="marquee-dot">·</span></span>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section class="intro">
+  <div class="intro-left">
+    <span class="eyebrow reveal">Our Philosophy</span>
+    <h2 class="intro-title reveal">Cooking that<br>begins in the <em>soil</em></h2>
+    <p class="intro-body reveal">Every plate at Maison Verdant starts before the kitchen — in the fields, orchards, and waters of our region. We write the menu each week based on what's at its most vivid, most alive, most itself.</p>
+    <a href="#" class="text-link reveal">Meet our producers →</a>
+    <div class="hours-grid reveal" style="margin-top: 48px;">
+      <div class="hours-item">
+        <div class="hours-day">Tue – Thu</div>
+        <div class="hours-time">6pm – 10pm</div>
+      </div>
+      <div class="hours-item">
+        <div class="hours-day">Fri – Sat</div>
+        <div class="hours-time">5pm – 11pm</div>
+      </div>
+    </div>
+  </div>
+  <div class="intro-right">
+    <img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=900&q=80" alt="Restaurant interior">
+    <div class="intro-caption">Our dining room, with its original beams and open hearth</div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu">
+  <div class="menu-header">
+    <h2 class="menu-title reveal">This <em>Season's</em><br>Favourites</h2>
+    <div class="season-chip reveal"><span class="leaf">🌿</span> Spring 2024</div>
+  </div>
+  <div class="menu-items">
+    <div class="menu-item reveal">
+      <div class="dish-tag tag-sig">Signature</div>
+      <div class="dish-label">Starter</div>
+      <div class="dish-name">Burrata & Spring Pea</div>
+      <div class="dish-desc">Hand-pulled burrata from the Cotswolds, first-of-season peas, preserved lemon oil, sorrel</div>
+      <div class="dish-price">£18</div>
+    </div>
+    <div class="menu-item reveal">
+      <div class="dish-tag tag-new">New</div>
+      <div class="dish-label">Starter</div>
+      <div class="dish-name">Ash-Smoked Trout</div>
+      <div class="dish-desc">River trout smoked over applewood ash, crème fraîche, trout roe, dill, rye crisp</div>
+      <div class="dish-price">£22</div>
+    </div>
+    <div class="menu-item reveal">
+      <div class="dish-label">Starter</div>
+      <div class="dish-name">Garden Soup du Jour</div>
+      <div class="dish-desc">A different soup every evening, built from whatever is most beautiful at market that morning</div>
+      <div class="dish-price">£14</div>
+    </div>
+    <div class="menu-item reveal">
+      <div class="dish-tag tag-sig">Signature</div>
+      <div class="dish-label">Main</div>
+      <div class="dish-name">Slow Lamb Shoulder</div>
+      <div class="dish-desc">12-hour braised lamb from Hereford, smoked aubergine purée, preserved plum, rosemary jus</div>
+      <div class="dish-price">£42</div>
+    </div>
+    <div class="menu-item reveal">
+      <div class="dish-label">Main</div>
+      <div class="dish-name">Wild Sea Bass</div>
+      <div class="dish-desc">Line-caught daily, charred leeks, verjuice butter sauce, sea vegetables, micro herbs</div>
+      <div class="dish-price">£38</div>
+    </div>
+    <div class="menu-item reveal">
+      <div class="dish-tag tag-new">New</div>
+      <div class="dish-label">Main</div>
+      <div class="dish-name">Mushroom Wellington</div>
+      <div class="dish-desc">Wild mushroom duxelles, spinach, chestnut, inside a golden thyme pastry — vegetarian centrepiece</div>
+      <div class="dish-price">£32</div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<div class="gallery">
+  <div class="gallery-item large">
+    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80" alt="Restaurant">
+    <div class="gallery-caption"><p>The open kitchen — where every dish is finished in view</p></div>
+  </div>
+  <div class="gallery-item">
+    <img src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=600&q=80" alt="Produce">
+    <div class="gallery-caption"><p>This morning's harvest</p></div>
+  </div>
+  <div class="gallery-item">
+    <img src="https://images.unsplash.com/photo-1567521464027-f127ff144326?w=600&q=80" alt="Wine">
+    <div class="gallery-caption"><p>Natural wines — biodynamic & organic</p></div>
+  </div>
+  <div class="gallery-item">
+    <img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=600&q=80" alt="Dish">
+    <div class="gallery-caption"><p>Spring burrata</p></div>
+  </div>
+  <div class="gallery-item">
+    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80" alt="Dessert">
+    <div class="gallery-caption"><p>Tarte tatin with crème anglaise</p></div>
+  </div>
+</div>
+
+<!-- CHEFS -->
+<section class="chefs">
+  <div class="chefs-header">
+    <span class="eyebrow reveal" style="color: var(--amber); display: block; margin-bottom: 12px;">The Team</span>
+    <h2 class="chefs-title reveal">Guided by <em>passion,</em><br>shaped by seasons</h2>
+  </div>
+  <div class="chefs-grid">
+    <div class="chef-card reveal">
+      <img class="chef-img" src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=500&q=80" alt="Chef">
+      <div class="chef-name">Antoine Moreau</div>
+      <div class="chef-role">Executive Chef & Founder</div>
+      <div class="chef-bio">Trained at Taillevent and Noma before returning to his native countryside to open Maison Verdant in 2009. James Beard nominated 2022.</div>
+    </div>
+    <div class="chef-card reveal">
+      <img class="chef-img" src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&q=80" alt="Chef">
+      <div class="chef-name">Clara Reyes</div>
+      <div class="chef-role">Head Chef, Pastry</div>
+      <div class="chef-bio">Clara's desserts celebrate the forgotten arts of preservation — lacto-fermented fruits, aged creams, and seasonal preserves made in our larder.</div>
+    </div>
+    <div class="chef-card reveal">
+      <img class="chef-img" src="https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?w=500&q=80" alt="Sommelier">
+      <div class="chef-name">Marcus Chen</div>
+      <div class="chef-role">Head Sommelier</div>
+      <div class="chef-bio">Marcus sources only natural, low-intervention wines that share our kitchen's values — biodynamic farms, honest winemakers, living bottles.</div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVATIONS -->
+<section class="reservations">
+  <div class="res-content reveal">
+    <span class="eyebrow">Reservations</span>
+    <h2 class="res-title">Join us for<br>an <em>evening</em> to remember</h2>
+    <p class="res-body">Tables at Maison Verdant book quickly, especially on weekends. We recommend reserving at least two weeks in advance for Friday and Saturday service.</p>
+    <a href="tel:+441234567890" class="text-link">+44 (0)1234 567 890 →</a>
+  </div>
+  <div class="res-form reveal">
+    <div class="form-title">Make a reservation</div>
+    <div class="form-row">
+      <div class="form-field">
+        <label class="form-label">First name</label>
+        <input type="text" class="form-input" placeholder="Antoine">
+      </div>
+      <div class="form-field">
+        <label class="form-label">Last name</label>
+        <input type="text" class="form-input" placeholder="Moreau">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-field">
+        <label class="form-label">Date</label>
+        <input type="date" class="form-input">
+      </div>
+      <div class="form-field">
+        <label class="form-label">Party size</label>
+        <select class="form-input">
+          <option>2 guests</option>
+          <option>3 guests</option>
+          <option>4 guests</option>
+          <option>5 guests</option>
+          <option>6+ guests</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-field full">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-input" placeholder="you@example.com">
+      </div>
+    </div>
+    <button class="form-submit">Request Table</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="logo">Maison <span>Verdant</span></div>
+      <p>A restaurant built on the belief that the best food begins long before the kitchen — in the hands of the growers, farmers, and fishermen we call friends.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Visit</div>
+      <ul>
+        <li><a href="#">The Menu</a></li>
+        <li><a href="#">Wine List</a></li>
+        <li><a href="#">Events</a></li>
+        <li><a href="#">Gift Cards</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Our Story</div>
+      <ul>
+        <li><a href="#">The Kitchen</a></li>
+        <li><a href="#">Producers</a></li>
+        <li><a href="#">The Team</a></li>
+        <li><a href="#">Journal</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Contact</div>
+      <ul>
+        <li><a href="#">Reservations</a></li>
+        <li><a href="#">Private Dining</a></li>
+        <li><a href="#">Press</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 Maison Verdant. All rights reserved.</span>
+    <span>12 Mill Lane, Herefordshire HR2 · Open Tue–Sat</span>
+  </div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 70);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
